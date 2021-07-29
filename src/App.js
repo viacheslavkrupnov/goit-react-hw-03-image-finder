@@ -28,6 +28,7 @@ class App extends Component {
     totalHits: 0,
 
     showModal: false,
+    largeURL: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -84,15 +85,16 @@ class App extends Component {
     this.setState({ imageName });
   };
 
-  toggleModal = () => {
+  toggleModal = largeURL => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
+      largeURL,
     }));
   };
 
   render() {
     const { error, status, arePicturesOver, images, showModal } = this.state;
-    const { alt, largeImageURL } = this.props;
+    const { alt } = this.props;
 
     return (
       <Container>
@@ -111,10 +113,14 @@ class App extends Component {
 
         {status === Status.RESOLVED && (
           <>
-            <ImageGallery images={images} />
+            <ImageGallery toggleModal={this.toggleModal} images={images} />
 
             {showModal && (
-              <Modal onClose={this.toggleModal} src={largeImageURL} alt={alt} />
+              <Modal
+                onClose={this.toggleModal}
+                src={this.state.largeURL}
+                alt={alt}
+              />
             )}
 
             {status === Status.RESOLVED && !arePicturesOver && (

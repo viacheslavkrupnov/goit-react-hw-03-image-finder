@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 import s from './ImageGallery.module.css';
 
-function ImageGallery({ images }) {
+function ImageGallery({ images, toggleModal }) {
   return (
     <ul className={s.ImageGallery}>
       {images.map((image, index) => (
@@ -11,6 +11,7 @@ function ImageGallery({ images }) {
           src={image.webformatURL}
           alt={image.tags}
           largeImageURL={image.largeImageURL}
+          toggleModal={toggleModal}
         />
       ))}
     </ul>
